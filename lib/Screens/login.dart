@@ -14,20 +14,21 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController emailController = TextEditingController();
+  final TextEditingController userNameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final ApiClient _apiClient = ApiClient();
   bool _showPassword = false;
 
   Future<void> login() async {
     if (_formKey.currentState!.validate()) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: const Text('Processing Data'),
-        backgroundColor: Colors.green.shade300,
-      ));
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => NowPlayingScreen()),
+
+      );
 
       dynamic res = await _apiClient.login(
-        emailController.text,
+        userNameController.text,
         passwordController.text,
       );
 
@@ -87,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           SizedBox(height: size.height * 0.06),
                           TextFormField(
-                            controller: emailController,
+                            controller: userNameController,
                             decoration: InputDecoration(
                               hintText: "UserName",
                               isDense: true,

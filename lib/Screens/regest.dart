@@ -2,6 +2,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:tmdb/Controllers/auth_controller.dart';
+import 'package:tmdb/Screens/BookMark.dart';
 import 'package:tmdb/Screens/login.dart';
 import 'package:tmdb/Screens/now_playing.dart';
 import 'package:tmdb/validator.dart';
@@ -23,10 +24,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   Future<void> registerUsers() async {
     if (_formKey.currentState!.validate()) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: const Text('Processing Data'),
-        backgroundColor: Colors.green.shade300,
-      ));
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => NowPlayingScreen()),);
 
       Map<String, dynamic> userData = {
         "Username": [
@@ -45,7 +45,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
       if (res['ErrorCode'] == null) {
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) =>  NowPlayingScreen()));
+            MaterialPageRoute(builder: (context) =>  BookMarkScreen()));
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Error: ${res['Message']}'),
