@@ -8,7 +8,7 @@ class TMDBService {
   static const username = 'johnny_appleseed';
   static const password = 'test123';
 
-  /*Future<String?> createRequestToken() async {
+  Future<String?> createRequestToken() async {
     final response = await http.get(
       Uri.parse('$baseUrl/authentication/token/new?api_key=$apiKey'),
     );
@@ -71,18 +71,6 @@ class TMDBService {
     }
 
   }
-
-  Future<List<dynamic>> getMovieWatchlist(String sessionId, String accountId) async {
-    final response = await http.get(
-      '$baseUrl/account/$accountId/watchlist/movies?session_id=$sessionId&api_key=$apiKey' as Uri,
-    );
-
-    if (response.statusCode == 200) {
-      return json.decode(response.body)['results'];
-    } else {
-      throw Exception('Failed to load movie watchlist');
-    }
-  }
   Future<Map<String, dynamic>> getAccountDetails(String sessionId) async {
     final response = await http.get(
       '$baseUrl/account?session_id=$sessionId&api_key=$apiKey' as Uri,
@@ -93,7 +81,7 @@ class TMDBService {
     } else {
       throw Exception('Failed to load account details');
     }
-  }*/
+  }
   Future<List<Movie>> getNowPlayingMovies({int page = 1}) async {
     final response = await http.get(
       Uri.parse('$baseUrl/movie/now_playing?api_key=$apiKey&page=$page'),
@@ -109,6 +97,16 @@ class TMDBService {
       throw Exception('Failed to fetch now playing movies');
     }
 }
+  Future<List<dynamic>> getMovieWatchlist(String sessionId, String accountId) async {
+    final response = await http.get(
+      '$baseUrl/account/$accountId/watchlist/movies?session_id=$sessionId&api_key=$apiKey' as Uri,
+    );
 
+    if (response.statusCode == 200) {
+      return json.decode(response.body)['results'];
+    } else {
+      throw Exception('Failed to load movie watchlist');
+    }
+  }
 
 }

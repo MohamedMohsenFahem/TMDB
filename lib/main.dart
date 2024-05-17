@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tmdb/Screens/now_playing.dart';
-import 'package:tmdb/Screens/regest.dart';
 
 void main() {
   runApp(const TMDB());
@@ -14,7 +13,7 @@ class TMDB extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'TMDB Client',
-      home: RegisterScreen(),
+      home: NowPlayingScreen(),
     );
 
   }

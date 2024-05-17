@@ -3,9 +3,11 @@
 import 'package:get/get.dart';
 import 'package:tmdb/Models/movie.dart';
 import 'package:tmdb/Services/tmdb_service.dart';
+import 'package:tmdb/Services/watchListService.dart';
 
 class NowPlayingController extends GetxController {
   final TMDBService _tmdbService = TMDBService();
+  final WatchlistService _watchlistService = WatchlistService();
 
   final movies = <Movie>[].obs;
   final isLoading = false.obs;
@@ -34,5 +36,13 @@ class NowPlayingController extends GetxController {
   Future<void> loadMoreMovies() async {
     currentPage.value++;
     await fetchNowPlayingMovies();
+  }
+  Future<void> addToBookmark(Movie movie) async {
+    try {
+      await _watchlistService.addToBookmark(movie);
+    } catch (e) {
+      print('Error adding movie to bookmark: $e');
+      throw Exception('Failed to add movie to bookmark');
+    }
   }
 }
